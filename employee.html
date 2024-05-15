@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for dark theme -->
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            padding-top: 60px;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .modal-content {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #555;
+        }
+
+        .form-label {
+            color: #ccc;
+        }
+
+        .form-control {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .white-text {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Employee List</h1>
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
+            Add New Employee
+        </button>
+
+        <!-- Employee Table -->
+        <table class="table white-text table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Birth Date</th>
+                    <th>Email</th>
+                    <!-- Add more columns as needed -->
+                </tr>
+            </thead>
+            <tbody id="employeeTableBody">
+                <!-- Employee rows will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEmployeeModalLabel">Add New Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for adding new employee -->
+                    <form id="addEmployeeForm">
+                        <!-- Personal Information -->
+                        <div class="mb-3">
+                            <label for="personalId" class="form-label">Personal ID</label>
+                            <input type="text" class="form-control" id="personalId" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="currentFirstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="currentFirstName" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="currentLastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="currentLastName" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="currentMiddleName" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" id="currentMiddleName">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="birthDate" class="form-label">Birth Date</label>
+                            <input type="date" class="form-control" id="birthDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="socialSecurityNumber" class="form-label">Social Security Number</label>
+                            <input type="text" class="form-control" id="socialSecurityNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="driversLicense" class="form-label">Driver's License</label>
+                            <input type="text" class="form-control" id="driversLicense">
+                        </div>
+                        <div class="mb-3">
+                            <label for="currentAddress1" class="form-label">Current Address Line 1</label>
+                            <input type="text" class="form-control" id="currentAddress1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="currentAddress2" class="form-label">Current Address Line 2</label>
+                            <input type="text" class="form-control" id="currentAddress2">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="currentCity" class="form-label">City</label>
+                                <input type="text" class="form-control" id="currentCity">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="currentCountry" class="form-label">Country</label>
+                                <input type="text" class="form-control" id="currentCountry">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="currentZip" class="form-label">ZIP Code</label>
+                                <input type="text" class="form-control" id="currentZip">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="currentGender" class="form-label">Gender</label>
+                            <select class="form-select" id="currentGender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="currentPhoneNumber" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="currentPhoneNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="currentPersonalEmail" class="form-label">Personal Email</label>
+                            <input type="email" class="form-control" id="currentPersonalEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="currentMaritalStatus" class="form-label">Marital Status</label>
+                            <select class="form-select" id="currentMaritalStatus">
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="divorced">Divorced</option>
+                            </select>
+                        </div>
+
+                        <!-- Employment Information -->
+                        <div class="mb-3">
+                            <label for="employmentId" class="form-label">Employment ID</label>
+                            <input type="text" class="form-control" id="employmentId">
+                        </div>
+                        <div class="mb-3">
+                            <label for="employmentCode" class="form-label">Employment Code</label>
+                            <input type="text" class="form-control" id="employmentCode">
+                        </div>
+                        <div class="mb-3">
+                            <label for="employmentStatus" class="form-label">Employment Status</label>
+                            <input type="text" class="form-control" id="employmentStatus">
+                        </div>
+                        <div class="mb-3">
+                            <label for="hireDate" class="form-label">Hire Date</label>
+                            <input type="date" class="form-control" id="hireDate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="workersCompCode" class="form-label">Worker's Comp Code</label>
+                            <input type="text" class="form-control" id="workersCompCode">
+                        </div>
+                        <div class="mb-3">
+                            <label for="terminationDate" class="form-label">Termination Date</label>
+                            <input type="date" class="form-control" id="terminationDate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="rehireDate" class="form-label">Rehire Date</label>
+                            <input type="date" class="form-control" id="rehireDate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastReviewDate" class="form-label">Last Review Date</label>
+                            <input type="date" class="form-control" id="lastReviewDate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="daysRequirementPerMonth" class="form-label">Days Requirement per Month</label>
+                            <input type="number" class="form-control" id="daysRequirementPerMonth">
+                        </div>
+
+                        <!-- Notification area -->
+                        <div id="notificationArea"></div>
+
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('addEmployeeForm');
+            const employeeTableBody = document.getElementById('employeeTableBody');
+
+            // Sample data for 20 employees
+            const employees = [
+                { id: 1, name: 'John Doe', birthDate: '1990-01-01', email: 'john.doe@example.com' },
+                { id: 2, name: 'Jane Smith', birthDate: '1985-02-14', email: 'jane.smith@example.com' },
+                { id: 3, name: 'Alice Johnson', birthDate: '1978-03-22', email: 'alice.johnson@example.com' },
+                { id: 4, name: 'Bob Brown', birthDate: '1992-04-18', email: 'bob.brown@example.com' },
+                { id: 5, name: 'Charlie Davis', birthDate: '1980-05-30', email: 'charlie.davis@example.com' },
+                { id: 6, name: 'Dana Lee', birthDate: '1995-06-25', email: 'dana.lee@example.com' },
+                { id: 7, name: 'Eve White', birthDate: '1988-07-12', email: 'eve.white@example.com' },
+                { id: 8, name: 'Frank Harris', birthDate: '1975-08-19', email: 'frank.harris@example.com' },
+                { id: 9, name: 'Grace Clark', birthDate: '1993-09-15', email: 'grace.clark@example.com' },
+                { id: 10, name: 'Hank Miller', birthDate: '1983-10-01', email: 'hank.miller@example.com' },
+                { id: 11, name: 'Ivy Lewis', birthDate: '1979-11-11', email: 'ivy.lewis@example.com' },
+                { id: 12, name: 'Jack Walker', birthDate: '1991-12-22', email: 'jack.walker@example.com' },
+                { id: 13, name: 'Kara Hall', birthDate: '1986-01-27', email: 'kara.hall@example.com' },
+                { id: 14, name: 'Leo Young', birthDate: '1981-02-08', email: 'leo.young@example.com' },
+                { id: 15, name: 'Mia King', birthDate: '1994-03-14', email: 'mia.king@example.com' },
+                { id: 16, name: 'Nina Scott', birthDate: '1990-04-23', email: 'nina.scott@example.com' },
+                { id: 17, name: 'Oscar Adams', birthDate: '1987-05-04', email: 'oscar.adams@example.com' },
+                { id: 18, name: 'Paula Baker', birthDate: '1982-06-16', email: 'paula.baker@example.com' },
+                { id: 19, name: 'Quincy Roberts', birthDate: '1976-07-29', email: 'quincy.roberts@example.com' },
+                { id: 20, name: 'Rita Carter', birthDate: '1989-08-03', email: 'rita.carter@example.com' }
+            ];
+
+            // Function to populate employee table
+            function populateEmployeeTable() {
+                employeeTableBody.innerHTML = ''; // Clear existing rows
+                employees.forEach(employee => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${employee.id}</td>
+                        <td>${employee.name}</td>
+                        <td>${employee.birthDate}</td>
+                        <td>${employee.email}</td>
+                    `;
+                    employeeTableBody.appendChild(row);
+                });
+            }
+
+            populateEmployeeTable();
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Retrieve form data
+                const formData = new FormData(form);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
+                // Example of sending data via fetch
+                const response = await fetch('/api/addEmployee', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    // Display success notification
+                    showNotification('Employee added successfully', 'success');
+                    // Clear form inputs
+                    form.reset();
+                    // Close modal after a delay
+                    setTimeout(() => {
+                        document.getElementById('addEmployeeModal').modal('hide');
+                    }, 2000); // Close modal after 2 seconds
+                } else {
+                    // Display error notification
+                    showNotification('Failed to add employee', 'danger');
+                }
+            });
+
+            // Function to show notification
+            function showNotification(message, type) {
+                const notificationArea = document.getElementById('notificationArea');
+                const alertClass = `alert alert-${type} mt-3`;
+                const alertHTML = `<div class="${alertClass}" role="alert">${message}</div>`;
+                notificationArea.innerHTML = alertHTML;
+            }
+        });
+    </script>
+</body>
+
+</html>

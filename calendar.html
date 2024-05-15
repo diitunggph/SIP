@@ -13,7 +13,8 @@
     <title>Calendar</title>
 
     <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
+    <link href="../public/css/font-face.css" rel="stylesheet" media="all">
+
     <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -34,16 +35,17 @@
     <link href='vendor/fullcalendar-3.10.0/fullcalendar.css' rel='stylesheet' media="all" />
 
     <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
+    <link href="../public/css/theme.css" rel="stylesheet" media="all">
 
     <style type="text/css">
-    /* force class color to override the bootstrap base rule
+        /* force class color to override the bootstrap base rule
        NOTE: adding 'url: #' to calendar makes this unneeded
      */
-    .fc-event, .fc-event:hover {
-          color: #fff !important;
-          text-decoration: none;
-    }
+        .fc-event,
+        .fc-event:hover {
+            color: #fff !important;
+            text-decoration: none;
+        }
     </style>
 
 </head>
@@ -52,6 +54,7 @@
       since calendar doesn't add href's be default,
       it leads to odd behaviors like loading 'undefined'
       moving the class to menus lead to only the menu having the effect -->
+
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
@@ -171,6 +174,10 @@
                             <a class="js-arrow" href="index.html">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
+                        <li>
+                            <a href="chart.html">
+                                <i class="fas fa-chart-bar"></i>Charts</a>
+                        </li>
                         <li class="active">
                             <a href="calendar.html">
                                 <i class="fas fa-calendar-alt"></i>Calendar</a>
@@ -190,7 +197,8 @@
                     <div class="container-fluid">
                         <div class="header-wrap">
                             <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for datas &amp; reports..." />
+                                <input class="au-input au-input--xl" type="text" name="search"
+                                    placeholder="Search for datas &amp; reports..." />
                                 <button class="au-btn--submit" type="submit">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
@@ -364,17 +372,10 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col">
-                              <div class="au-card">
-                                <div id="calendar"></div>
-                              </div>
-                            </div><!-- .col -->
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                <div class="au-card">
+                                    <div id="calendar"></div>
                                 </div>
-                            </div>
+                            </div><!-- .col -->
                         </div>
                     </div>
                 </div>
@@ -408,51 +409,52 @@
     <script src="vendor/fullcalendar-3.10.0/fullcalendar.js"></script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
+    <script src="./public/js/main.js"></script>
+
 
     <script type="text/javascript">
-$(function() {
-  // for now, there is something adding a click handler to 'a'
-  var tues = moment().day(2).hour(19);
+        $(function () {
+            // for now, there is something adding a click handler to 'a'
+            var tues = moment().day(2).hour(19);
 
-  // build trival night events for example data
-  var events = [
-    {
-      title: "Special Conference",
-      start: moment().format('YYYY-MM-DD'),
-      url: '#'
-    },
-    {
-      title: "Doctor Appt",
-      start: moment().hour(9).add(2, 'days').toISOString(),
-      url: '#'
-    }
+            // build trival night events for example data
+            var events = [
+                {
+                    title: "Special Conference",
+                    start: moment().format('YYYY-MM-DD'),
+                    url: 'events.html'
+                },
+                {
+                    title: "Doctor Appt",
+                    start: moment().hour(9).add(2, 'days').toISOString(),
+                    url: '#'
+                }
 
-  ];
+            ];
 
-  var trivia_nights = []
+            var trivia_nights = []
 
-  for(var i = 1; i <= 4; i++) {
-    var n = tues.clone().add(i, 'weeks');
-    console.log("isoString: " + n.toISOString());
-    trivia_nights.push({
-      title: 'Trival Night @ Pub XYZ',
-      start: n.toISOString(),
-      allDay: false,
-      url: '#'
-    });
-  }
+            for (var i = 1; i <= 4; i++) {
+                var n = tues.clone().add(i, 'weeks');
+                console.log("isoString: " + n.toISOString());
+                trivia_nights.push({
+                    title: 'Trival Night @ Pub XYZ',
+                    start: n.toISOString(),
+                    allDay: false,
+                    url: '#'
+                });
+            }
 
-  // setup a few events
-  $('#calendar').fullCalendar({
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'month,agendaWeek,agendaDay,listWeek'
-    },
-    events: events.concat(trivia_nights)
-  });
-});
+            // setup a few events
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listWeek'
+                },
+                events: events.concat(trivia_nights)
+            });
+        });
     </script>
 
 

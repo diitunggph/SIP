@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Events</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for dark theme -->
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            padding-top: 60px;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        .modal-content {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #555;
+        }
+
+        .form-label {
+            color: #ccc;
+        }
+
+        .form-control {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .white-text {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Special Events</h1>
+
+        <!-- Event Table -->
+        <table class="table white-text table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Event ID</th>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody id="eventTableBody">
+                <!-- Event rows will be dynamically populated here -->
+            </tbody>
+        </table>
+
+        <!-- Bootstrap Modal for Event Details -->
+        <div class="modal fade" id="eventDetailsModal" tabindex="-1" role="dialog" aria-labelledby="eventDetailsModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eventDetailsModalLabel">Event Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="eventDetailsBody">
+                        <!-- Event details will be dynamically filled here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const eventTableBody = document.getElementById('eventTableBody');
+
+            // Sample data for special events (company birthdays)
+            const events = [
+                { id: 1, name: 'John Doe Birthday', date: '2024-06-10', description: 'Celebrating John Doe\'s birthday.' },
+                { id: 2, name: 'Jane Smith Birthday', date: '2024-07-22', description: 'Birthday party for Jane Smith.' },
+                { id: 3, name: 'Company Anniversary', date: '2024-08-15', description: 'Celebrating the company\'s founding.' },
+                { id: 4, name: 'Holiday Party', date: '2024-12-20', description: 'Annual holiday celebration.' },
+                // Add more events as needed
+            ];
+
+            // Function to populate event table
+            function populateEventTable() {
+                eventTableBody.innerHTML = ''; // Clear existing rows
+                events.forEach(event => {
+                    const row = document.createElement('tr');
+                    row.classList.add("event-item")
+                    row.innerHTML = `
+                        <td>${event.id}</td>
+                        <td>${event.name}</td>
+                        <td>${formatDate(event.date)}</td>
+                        <td>${event.description}</td>
+                    `;
+                    row.addEventListener('click', () => showEventDetails(event)); // Attach click event
+                    eventTableBody.appendChild(row);
+                });
+            }
+
+            // Helper function to format date (YYYY-MM-DD to MM/DD/YYYY)
+            function formatDate(dateString) {
+                const [year, month, day] = dateString.split('-');
+                return `${month}/${day}/${year}`;
+            }
+
+            // Function to display event details in modal
+            function showEventDetails(event) {
+                const eventDetailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'), {
+                    keyboard: false
+                });
+                const eventDetailsBody = document.getElementById('eventDetailsBody');
+                eventDetailsBody.innerHTML = `
+                    <p><strong>Event Name:</strong> ${event.name}</p>
+                    <p><strong>Date:</strong> ${formatDate(event.date)}</p>
+                    <p><strong>Description:</strong> ${event.description}</p>
+                `;
+                eventDetailsModal.show();
+            }
+
+            populateEventTable();
+        });
+    </script>
+</body>
+
+</html>
